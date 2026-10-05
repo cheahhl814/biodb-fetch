@@ -153,7 +153,7 @@ def main() -> int:
         print("         ~/.agents/skills/biodb-fetch/")
         print("    2. diff -rq <src> <dst> --exclude='.git'   # verify zero drift")
         print("         (skill_source = this skill's source checkout,")
-        print("          skill_target = the matching path under ~/.pi/agent/skills/)")
+        print("          skill_target = the matching path under ~/.agents/skills/)")
         print("  Option B (if you have a git checkout of this skill):")
         print(f"    git pull --ff-only origin $(basename {origin_ref.replace('refs/remotes/origin/', '')})")
         return 1

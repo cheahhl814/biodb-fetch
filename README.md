@@ -125,7 +125,7 @@ Tool usage is grounded in the offline `docs-corpus/` snapshots (version-matched 
 All fetched payloads land in one shared store **inside the skill folder** (`<skill-dir>/store/`, override with `BIODB_FETCH_STORE`). Payload paths are content-addressed (`<domain>/<slug>-<sha16>.<ext>` + md5 `.sha256` sidecars, no timestamps), so a second skill or batch reusing the same data gets a `cache=hit` manifest row pointing into the store — zero re-download. Every row also lands in `<store>/manifest.tsv`, the cross-skill data inventory; grep it before dispatching a request. Because a source's data can grow (e.g. OBIS occurrence records), cache rows carry `retrieval_date`; consumers set freshness windows, and `--refresh` re-pulls.
 
 > [!IMPORTANT]
-> The store lives inside the skill folder: any `rsync --delete` update of the skill MUST exclude it — `rsync -av --delete --exclude='store/' src/ ~/.pi/agent/skills/biodb-fetch/`. Data is gitignored (`store/`) and never committed.
+> The store lives inside the skill folder: any `rsync --delete` update of the skill MUST exclude it — `rsync -av --delete --exclude='store/' src/ ~/.agents/skills/biodb-fetch/`. Data is gitignored (`store/`) and never committed.
 
 ## 🔄 Update check
 

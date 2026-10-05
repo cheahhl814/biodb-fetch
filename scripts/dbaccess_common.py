@@ -32,7 +32,7 @@ over time: cache rows carry retrieval_date — consumers choose freshness window
 Deploy guard: the store lives INSIDE the skill folder, so rsync-based updates of the
 skill MUST exclude it:
 
-  rsync -av --delete --exclude='store/' src/ ~/.pi/agent/skills/<skill>/
+  rsync -av --delete --exclude='store/' src/ ~/.agents/skills/<skill>/
 
 And store/ is gitignored — data is never committed.
 """
