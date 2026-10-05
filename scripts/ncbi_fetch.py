@@ -21,8 +21,8 @@ import urllib.parse
 
 from Bio import Entrez
 
-from dbaccess_common import (HEADERS, common_args, manifest_append, now_utc, ncbi_rate_limiter,
-                             parse_date_header, sidecar_match, store_payload_path)
+from dbaccess_common import (HEADERS, common_args, common_parser, manifest_append, now_utc,
+                             ncbi_rate_limiter, parse_date_header, sidecar_match, store_payload_path)
 
 TOOL = "dbaccess-ncbi_fetch 1.0.0"
 
@@ -130,17 +130,17 @@ def do_link(args) -> int:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Entrez E-utilities wrapper under the manifest.tsv contract")
-    common_args(ap)
+    common = common_parser()
+    ap = argparse.ArgumentParser(description="Entrez E-utilities wrapper under the manifest.tsv contract", parents=[common])
     sub = ap.add_subparsers(dest="cmd", required=True)
-    s = sub.add_parser("search"); s.add_argument("--db", required=True); s.add_argument("--query", required=True)
+    s = sub.add_parser("search", parents=[common]); s.add_argument("--db", required=True); s.add_argument("--query", required=True)
     s.add_argument("--retstart", type=int, default=0); s.add_argument("--retmax", type=int, default=20)
     s.add_argument("--history", action="store_true")
     s.add_argument("--date-from"); s.add_argument("--date-to"); s.add_argument("--date-type", default="pdat")
-    f = sub.add_parser("fetch"); f.add_argument("--db", required=True); f.add_argument("--uids")
+    f = sub.add_parser("fetch", parents=[common]); f.add_argument("--db", required=True); f.add_argument("--uids")
     f.add_argument("--query"); f.add_argument("--retmax", type=int, default=500)
     f.add_argument("--rettype"); f.add_argument("--retmode")
-    l = sub.add_parser("link"); l.add_argument("--db-from", required=True); l.add_argument("--db-to", required=True)
+    l = sub.add_parser("link", parents=[common]); l.add_argument("--db-from", required=True); l.add_argument("--db-to", required=True)
     l.add_argument("--uids", required=True)
     args = ap.parse_args()
     args.outdir = args.outdir.rstrip("/") or "./work/database-access"

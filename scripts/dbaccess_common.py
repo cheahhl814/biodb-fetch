@@ -213,7 +213,7 @@ def manifest_append(outdir: str, rows: list[dict], tool: str) -> str:
             row["bytes"] = os.path.getsize(row["path"])
         elif row.get("path") == "-":
             row.update({"md5": "-", "bytes": "-"})
-        key = (row["accession"], row["source"], row["path"])
+        key = (row["accession"], row["source"], row["path"], row.get("cache", "-"))
         if key not in existing:
             existing.add(key)
             fresh.append(row)
@@ -225,9 +225,11 @@ def manifest_append(outdir: str, rows: list[dict], tool: str) -> str:
             fh.write("\t".join(MANIFEST_COLUMNS) + "\n")
         for row in fresh:
             fh.write("\t".join(str(row.get(c, "-")) for c in MANIFEST_COLUMNS) + "\n")
-    # every payload row is mirrored into the store-global manifest (cross-skill inventory)
+    # every payload row is mirrored into the store-global manifest (cross-skill inventory);
+    # cache=hit rows carry no store state — a fresh miss already registered the payload — so
+    # mirroring only miss/other rows keeps the store manifest canonical
     try:
-        store_manifest_append(fresh)
+        store_manifest_append([r for r in fresh if str(r.get("cache", "-")) != "hit"])
     except OSError:
         pass  # store manifest is an inventory aid; per-request manifest is authoritative
     return mpath
@@ -260,6 +262,15 @@ def common_args(parser: argparse.ArgumentParser, default_outdir: str = "./work/d
     parser.add_argument("--email", default=os.environ.get("NCBI_EMAIL", ""), help="NCBI email (or NCBI_EMAIL env)")
     parser.add_argument("--api-key", default=os.environ.get("NCBI_API_KEY", ""), help="NCBI api_key (or NCBI_API_KEY env)")
     parser.add_argument("--refresh", action="store_true", help="bypass the shared-store cache and re-download (store row records cache=miss)")
+
+
+def common_parser(default_outdir: str = "./work/database-access/") -> argparse.ArgumentParser:
+    """Parent parser for scripts with subcommands — attach via parents=[] so the common
+    flags work BOTH before and after the subcommand (argparse does not pass top-level
+    optionals into subparsers). Verified 2026-10-05 via the contract probe."""
+    p = argparse.ArgumentParser(add_help=False)
+    common_args(p, default_outdir)
+    return p
 
 
 def tool_banner(name: str, version: str) -> str:
