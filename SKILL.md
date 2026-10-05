@@ -111,7 +111,7 @@ pixi run update-check
 #   NO-ORIGIN        (2)  no `origin` remote configured; informational
 ```
 
-When `BEHIND-BY-N`, the script prints the canonical fix (rsync from `@skills/biodb-fetch/` to `~/.pi/agent/skills/biodb-fetch/` per AGENTS.md §4a, then `diff -rq` to verify). When `OFFLINE`, the script still prints `local_sha` + deployed version so the user can compare by hand. The full implementation is in `bin/skill-update-check.py` (rendered from the meta-skill's `templates/bin/skill-update-check.py.j2`).
+When `BEHIND-BY-N`, the script prints the canonical fix (rsync from `@skills/biodb-fetch/` to `~/.agents/skills/biodb-fetch/` per AGENTS.md §4a, then `diff -rq` to verify). When `OFFLINE`, the script still prints `local_sha` + deployed version so the user can compare by hand. The full implementation is in `bin/skill-update-check.py` (rendered from the meta-skill's `templates/bin/skill-update-check.py.j2`).
 
 ### 0.4 The run command
 

@@ -150,7 +150,7 @@ def main() -> int:
         print("  Option A (canonical, no git auth needed):")
         print("    1. rsync -a --exclude='.git' \\")
         print("         <skill_source>/ \\")
-        print("         ~/.pi/agent/skills/biodb-fetch/")
+        print("         ~/.agents/skills/biodb-fetch/")
         print("    2. diff -rq <src> <dst> --exclude='.git'   # verify zero drift")
         print("         (skill_source = this skill's source checkout,")
         print("          skill_target = the matching path under ~/.pi/agent/skills/)")

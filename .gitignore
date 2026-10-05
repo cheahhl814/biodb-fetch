@@ -34,3 +34,5 @@ preflight.md
 preflight_evidence.txt
 tool_search_results.txt
 tool-inventory.json
+# Opt-in execution-canary scratch (battle-test check #12; never committed)
+.battle-test-scratch/
