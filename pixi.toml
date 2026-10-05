@@ -1,0 +1,36 @@
+[workspace]
+name = "biodb-fetch"
+version = "1.0.0"
+description = "Dependency skill for programmatic bioinformatics database access: NCBI Entrez E-utilities + Datasets v2 CLI, SRA/ENA/STRIDES read download, GEO with SuperSeries detection, UniProt/Ensembl/BioMart ID mapping, and pre-computed ortholog retrieval. Every fetch script emits manifest.tsv with a contract_version that consuming skills verify. Compute-heavy topics (BLAST, remote homology, interaction databases) are deliberately out of scope. Built on the AiX-BIO convention via bioinfo-skill-creator."
+channels = ["conda-forge", "bioconda"]
+platforms = ["linux-64", "osx-64", "osx-arm64"]
+
+[dependencies]
+# Every tool here was confirmed via `pixi search` during preflight (status: found in params.json).
+python = "3.12"
+biopython = "1.88"
+ncbi-datasets-cli = "18.38.0"
+sra-tools = "3.4.1"
+pysradb = "2.5.1"
+geoparse = "2.0.4"
+pybiomart = "0.2.0"
+gdown = "6.4.1"
+pyobis = "1.6.2"
+requests = "*"
+
+# CheckM (validation) crashes on Python >=3.12 with setuptools >=81:
+# "ModuleNotFoundError: No module named 'pkg_resources'" (pkg_resources was
+# removed from setuptools in 81). Pin setuptools until checkm-genome is
+# updated upstream to not depend on pkg_resources.
+# setuptools = "<81"  # uncomment if CheckM is used (in CheckM's feature table if it is isolated)
+
+[tasks]
+# Common workflows as pixi tasks
+preflight = "echo 'Starting preflight workflow...'"
+run = "echo 'Starting main workflow...'"
+qc = "echo 'Starting QC workflow...'"
+debug = "echo 'Starting debug workflow...'"
+battle-test = "echo 'Starting battle-test workflow...'"
+# Self-check: compares this skill's git SHA to upstream (github.com/cheahhl814/biodb-fetch).
+# See bin/skill-update-check.py for the verdict legend (UP-TO-DATE / BEHIND-BY-N / OFFLINE).
+update-check = "python3 bin/skill-update-check.py"
