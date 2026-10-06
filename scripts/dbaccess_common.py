@@ -176,6 +176,7 @@ def fetch_to_file(
             resp.raise_for_status()
             written = 0
             tmp = dest + ".part"
+            os.makedirs(os.path.dirname(os.path.abspath(tmp)), exist_ok=True)
             with open(tmp, "wb") as fh:
                 for data in resp.iter_content(chunk):
                     fh.write(data)
