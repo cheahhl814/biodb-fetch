@@ -1,8 +1,8 @@
 ---
 name: biodb-fetch
-description: 'Reusable dependency skill for programmatic database retrieval across eight domains: ncbi (Entrez + Datasets v2 CLI, routed by Datasets-vs-E-utilities rule), reads (SRA/ENA/STRIDES, ENA-first), geo (SuperSeries detection), id-mapping (UniProt async, Ensembl REST, BioMart bulk), orthologs-precomputed (OrthoDB/Compara/OMA/eggNOG), marker-references (eDNA libraries: UNITE/PlutoF, BOLD API, Mitohelper/SILVA/PR2/MIDORI2, DECIPHER-via-gdown), occurrence-marine (OBIS public API w/ WKT-year filters), taxonomy (NCBI Datasets + CoL XR/ChecklistBank + WoRMS AphiaIDs). Every fetch script emits a manifest.tsv with contract_version so consumer skills get a stable testable contract; licenses (CC-BY-NC) gate in code. Compute-heavy topics (BLAST, homology, interactions) out of scope. Read-side counterpart of ena-submit; pairs with lit-fetch (papers vs records). Built via bioinfo-skill-creator.'
-version: 1.0.0
-updated: "2026-10-05"
+description: 'Reusable dependency skill for programmatic database retrieval across eight domains: ncbi (Entrez + Datasets v2 CLI, routed by Datasets-vs-E-utilities rule), reads (SRA/ENA/STRIDES, ENA-first), geo (SuperSeries detection), id-mapping (UniProt async, Ensembl REST, BioMart bulk), orthologs-precomputed (OrthoDB/Compara/OMA/eggNOG), marker-references (eDNA libraries: UNITE/PlutoF, BOLD API, Mitohelper/SILVA/PR2/MIDORI2, DECIPHER-via-gdown), occurrence-marine (OBIS public API w/ WKT-year filters), taxonomy (NCBI Datasets + CoL XR/ChecklistBank + WoRMS AphiaIDs). Every fetch script emits a manifest.tsv with contract_version so consumer skills get a stable testable contract; licenses (CC-BY-NC) gate in code. Compute-heavy topics (BLAST, homology, interactions) out of scope. Read-side counterpart of ena-submit; pairs with lit-fetch (papers vs records). Built via skill-forge.'
+version: 1.0.1
+updated: "2026-10-12"
 triggers:
   - "biomart id mapping"
   - "catalogue of life"
@@ -29,7 +29,7 @@ triggers:
 
 # Database Access & Retrieval for Bioinformatics
 
-> **v1.0.0.** Dependency skill for programmatic bioinformatics database access: NCBI Entrez E-utilities + Datasets v2 CLI, SRA/ENA/STRIDES read download, GEO with SuperSeries detection, UniProt/Ensembl/BioMart ID mapping, and pre-computed ortholog retrieval. Every fetch script emits manifest.tsv with a contract_version that consuming skills verify. Compute-heavy topics (BLAST, remote homology, interaction databases) are deliberately out of scope. Built on the AiX-BIO convention via bioinfo-skill-creator.
+> **v1.0.0.** Dependency skill for programmatic bioinformatics database access: NCBI Entrez E-utilities + Datasets v2 CLI, SRA/ENA/STRIDES read download, GEO with SuperSeries detection, UniProt/Ensembl/BioMart ID mapping, and pre-computed ortholog retrieval. Every fetch script emits manifest.tsv with a contract_version that consuming skills verify. Compute-heavy topics (BLAST, remote homology, interaction databases) are deliberately out of scope. Built on the AiX-BIO convention via skill-forge.
 
 ## Audience
 
@@ -196,4 +196,4 @@ After this orchestrator routes the user to a phase, the agent should explicitly 
 
 ## Provenance
 
-Built with the [bioinfo-skill-creator](https://github.com/cheahhl814/bioinfo-skill-creator) meta-skill. Pattern adopted from [BettaMt-agents](https://github.com/cheahhl814/BettaMt-agents).
+Built with the [skill-forge](https://github.com/cheahhl814/bioinfo-skill-creator) meta-skill. Pattern adopted from [BettaMt-agents](https://github.com/cheahhl814/BettaMt-agents).
