@@ -12,6 +12,7 @@ triggers:
   - "bold coi"
   - "12S reference"
   - "ITS reference"
+disable-model-invocation: true
 ---
 
 # eDNA Marker References (run module)

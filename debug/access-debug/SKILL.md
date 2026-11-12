@@ -8,6 +8,7 @@ triggers:
   - "efetch error"
   - "uniprot 404"
   - "biomart empty"
+disable-model-invocation: true
 ---
 
 # Access Debug (debug phase)

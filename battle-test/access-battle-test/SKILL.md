@@ -6,6 +6,7 @@ updated: "2026-10-05"
 triggers:
   - "battle-test database access"
   - "verify skill structure"
+disable-model-invocation: true
 ---
 
 # Access Battle-Test

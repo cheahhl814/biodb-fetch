@@ -8,6 +8,7 @@ triggers:
   - "ncbi taxonomy"
   - "catalogue of life"
   - "name resolution"
+disable-model-invocation: true
 ---
 
 # Taxonomy Backbone (run module)

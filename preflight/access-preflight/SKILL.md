@@ -7,6 +7,7 @@ triggers:
   - "preflight database access"
   - "check ncbi api key"
   - "before downloading data"
+disable-model-invocation: true
 ---
 
 # Access Preflight (biodb-fetch)

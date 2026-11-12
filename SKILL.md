@@ -25,6 +25,7 @@ triggers:
   - "uniprot rest"
   - "unite download"
   - "worms aphiaid"
+disable-model-invocation: true
 ---
 
 # Database Access & Retrieval for Bioinformatics

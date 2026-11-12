@@ -8,6 +8,7 @@ triggers:
   - "marine occurrence data"
   - "species distribution marine"
   - "obis checklist"
+disable-model-invocation: true
 ---
 
 # Occurrence Marine — OBIS (run module)

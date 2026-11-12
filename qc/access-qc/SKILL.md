@@ -7,6 +7,7 @@ triggers:
   - "qc database access"
   - "verify manifest"
   - "check downloads"
+disable-model-invocation: true
 ---
 
 # Access QC (qc phase)

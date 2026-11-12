@@ -10,6 +10,7 @@ triggers:
   - "geo superarray super"
   - "map ids bulk"
   - "precomputed orthologs"
+disable-model-invocation: true
 ---
 
 # Access Builder (run phase)
