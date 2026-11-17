@@ -1,8 +1,8 @@
 ---
 name: access-battle-test
 description: Quality gate for the biodb-fetch skill — structural smoke tests (frontmatter coherence, contract wiring, signature libraries, docs-corpus freshness, pixi parse, git hygiene, self-update check, fixtures determinism) plus fixtures-first contract verification against scripts/ (offline) and opt-in live canaries per endpoint (fixtures first — live API tests are nondeterministic). Verdict PASS / PASS-WITH-WARNINGS.
-version: 1.0.0
-updated: "2026-10-05"
+version: 1.0.1
+updated: "2026-11-17"
 triggers:
   - "battle-test database access"
   - "verify skill structure"
@@ -11,7 +11,7 @@ disable-model-invocation: true
 
 # Access Battle-Test
 
-> **v1.0.0.** 14 structural checks + fixtures-first script verification. Contract: consume `skill-built.md` (from build) + `params.json`; emit `battle-test-report.md` (verdict ≥ PASS-WITH-WARNINGS required for ship). All scripts py_compile or py-import first, never blind-execute fetches.
+> 14 structural checks + fixtures-first script verification. Contract: consume `skill-built.md` (from build) + `params.json`; emit `battle-test-report.md` (verdict ≥ PASS-WITH-WARNINGS required for ship). All scripts py_compile or py-import first, never blind-execute fetches.
 
 ## Inputs / Outputs contract
 

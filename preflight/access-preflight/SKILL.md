@@ -1,8 +1,8 @@
 ---
 name: access-preflight
 description: Validate the environment before any database retrieval — pixi env + tools, network reachability per endpoint, NCBI email/api_key readiness, scratch disk (the fasterq-dump ~3× FASTQ space trap), and rate-limit budget. Writes contract.json (machine) + report. Refuses to proceed on GO/NO-GO failures. Use when starting retrieval work, after long pauses, or when a consumer skill delegates its data-download step.
-version: 1.0.0
-updated: "2026-10-05"
+version: 1.0.1
+updated: "2026-11-17"
 triggers:
   - "preflight database access"
   - "check ncbi api key"
@@ -12,7 +12,7 @@ disable-model-invocation: true
 
 # Access Preflight (biodb-fetch)
 
-> **v1.0.0.** Environment + credential + reachability audit for all five retrieval domains (ncbi, reads, geo, id-mapping, orthologs-precomputed). Writes `contract.json` + `preflight-report.md`; the run phase refuses to start without `GO` / `GO-WITH-WARNINGS`.
+> Environment + credential + reachability audit for all eight retrieval domains (ncbi, reads, geo, id-mapping, orthologs-precomputed, marker-references, occurrence-marine, taxonomy). Writes `contract.json` + `preflight-report.md`; the run phase refuses to start without `GO` / `GO-WITH-WARNINGS`.
 
 ## Audience
 

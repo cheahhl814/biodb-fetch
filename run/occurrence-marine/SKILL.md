@@ -1,8 +1,8 @@
 ---
 name: taxbackdrop-occurrence-marine
 description: Retrieval runbook for marine biodiversity occurrence data — OBIS via its public REST API (pyobis client) with scientificname/taxonid/datasetid/nodeid/year/depth/WKT-geometry filters and no credentials for the public tier. Covers occurrences, species checklists, and dataset metadata; pairs with GBIF occurrence data (marine↔terrestrial duality) for consumers like occurrence-crosscheck and edna-gbif-publish. Use when a pipeline needs marine species occurrence records.
-version: 1.0.0
-updated: "2026-10-05"
+version: 1.0.1
+updated: "2026-11-17"
 triggers:
   - "obis occurrence"
   - "marine occurrence data"
@@ -13,7 +13,7 @@ disable-model-invocation: true
 
 # Occurrence Marine — OBIS (run module)
 
-> **v1.0.0.** Fetch-only module for OBIS (Ocean Biodiversity Information System), the world's marine species-occurrence integration harvested from thousands of datasets. Delivers occurrence records, species checklists, and dataset metadata under the manifest v1 contract. Public tier needs NO credentials.
+> Fetch-only module for OBIS (Ocean Biodiversity Information System), the world's marine species-occurrence integration harvested from thousands of datasets. Delivers occurrence records, species checklists, and dataset metadata under the manifest v1 contract. Public tier needs NO credentials.
 
 ## Contract
 

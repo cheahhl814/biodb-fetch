@@ -24,7 +24,7 @@ store/
 # Docs-corpus fetch cache (regenerable via skill-update-check)
 docs-corpus/.fingerprints
 
-# Meta-skill run artifacts (per-run, regenerable by re-running bioinfo-skill-creator)
+# Meta-skill run artifacts (per-run, regenerable by re-running skill-forge)
 # — NOT part of the skill's operational deliverable; never commit them to GitHub.
 # params.json IS tracked (it is the render input that makes a re-run reproducible).
 skill-built.md
@@ -36,3 +36,6 @@ tool_search_results.txt
 tool-inventory.json
 # Opt-in execution-canary scratch (battle-test check #12; never committed)
 .battle-test-scratch/
+
+# Codebase-index cache (local tool artifact)
+.codebase-index/

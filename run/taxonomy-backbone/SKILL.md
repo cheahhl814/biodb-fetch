@@ -1,8 +1,8 @@
 ---
 name: taxbackdrop-taxonomy-backbone
 description: Retrieval runbook for the taxonomy domain — NCBI Datasets v2 taxonomy endpoints (summary/names/children via the pinned datasets CLI) and Catalogue of Life Extended Release via ChecklistBank API. Includes the frozen GBIF-Backbone → COL XR migration rule every consumer must know since rgbif 3.9. Use when resolving names to canonical IDs, synonyms, or children lists.
-version: 1.0.0
-updated: "2026-10-05"
+version: 1.0.1
+updated: "2026-11-17"
 triggers:
   - "taxonomy lookup"
   - "ncbi taxonomy"
@@ -13,7 +13,7 @@ disable-model-invocation: true
 
 # Taxonomy Backbone (run module)
 
-> **v1.0.0.** Two sources, fetch-only, no new heavy dependencies. This module does NOT parse or compare taxonomies — it retrieves backbone evidence files under the manifest contract.
+> Two sources, fetch-only, no new heavy dependencies. This module does NOT parse or compare taxonomies — it retrieves backbone evidence files under the manifest contract.
 
 ## The 2025+ backbone rule (state this to every consumer)
 

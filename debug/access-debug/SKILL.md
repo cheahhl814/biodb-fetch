@@ -1,8 +1,8 @@
 ---
 name: access-debug
 description: Failure interpreter for biodb-fetch fetches — signature library over network (HTTP codes, DNS, redirects), rate limits (429/502), credential (401/403 + api_key), mirror outages (ENA ↔ SRA ↔ STRIDES), stale WebEnv history, weekly NCBI index lag, UniProt/Ensembl endpoint migrations. Writes debug-report.md with RECOVERABLE/BLOCKED verdict. Use when a fetch script fails and the signature is not obvious.
-version: 1.0.0
-updated: "2026-10-05"
+version: 1.0.1
+updated: "2026-11-17"
 triggers:
   - "database access failed"
   - "efetch error"
@@ -13,7 +13,7 @@ disable-model-invocation: true
 
 # Access Debug (debug phase)
 
-> **v1.0.0.** Reads the failing stderr / HTTP evidence, matches the signature library, and returns a concrete fix (command + tool/version). Never retries blind in a loop — every retry changes one variable.
+> Reads the failing stderr / HTTP evidence, matches the signature library, and returns a concrete fix (command + tool/version). Never retries blind in a loop — every retry changes one variable.
 
 ## Inputs / Outputs contract
 

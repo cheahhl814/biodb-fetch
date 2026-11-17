@@ -1,8 +1,8 @@
 ---
 name: access-builder
 description: Execute database retrieval under the manifest.tsv contract across five domains with source-routing rules — ncbi (Entrez + Datasets CLI), reads (ENA-first → SRA → STRIDES), geo (SuperSeries detection), id-mapping (BioMart bulk, REST single, UniProt async), orthologs-precomputed (OrthoDB/Compara/OMA/eggNOG). Use when a consumer skill needs records, sequences, FASTQs, ID maps, or precomputed orthologs.
-version: 1.0.0
-updated: "2026-10-05"
+version: 1.0.1
+updated: "2026-11-17"
 triggers:
   - "download genome"
   - "entrez search fetch"
@@ -15,7 +15,7 @@ disable-model-invocation: true
 
 # Access Builder (run phase)
 
-> **v1.0.0.** The main retrieval phase. Routes each question to the right source using the decision rules below, executes via `scripts/`, and emits every artifact under the **manifest.tsv contract** (see §Contract).
+> The main retrieval phase. Routes each question to the right source using the decision rules below, executes via `scripts/`, and emits every artifact under the **manifest.tsv contract** (see §Contract).
 
 ## Inputs / Outputs contract
 
@@ -119,7 +119,6 @@ NCBI Datasets v2 taxonomy endpoints + Catalogue of Life XR via ChecklistBank API
 | --- | --- | --- |
 | `gdown failed ... quota` | Google Drive quota on DECIPHER trainingFiles | retry later; mirror per nf-edna reference-db; never curl Drive links |
 | ChecklistBank 404 on pinned checklistKey | COL XR key rotated | re-resolve from GBIF migration docs; consumers must not hardcode the key |
-| --- | --- | --- |
 | `HTTP 429 Too Many Requests` (eutils) | Anonymous rate budget exceeded (3 req/s) | Space calls ≥ 0.4 s; configure api_key for 10 req/s |
 | `DBResultError: ('id not found', ...)` | Record created recently — weekly index lag | Verify via esearch `--uid` on the known UID; document in manifest |
 | `WebEnv expired` | History lost (TTL ~2h) | Re-run esearch; keep batch fetches in one session |

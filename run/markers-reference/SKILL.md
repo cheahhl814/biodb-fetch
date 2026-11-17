@@ -1,8 +1,8 @@
 ---
 name: taxbackdrop-marker-references
 description: Retrieval runbook for eDNA metabarcoding marker-reference libraries — UNITE (PlutoF DOI, v10.2+), BOLD REST API per-record COI, Mitohelper Zenodo datasets (12S/COI), SILVA/PR2/MIDORI2/DECIPHER execution with gdown-for-Drive handling, and explicit CC-BY-NC license gating. Centralizes nf-edna reference-db's catalog into executable fetches under the manifest contract. Use when a pipeline needs 16S/18S/12S/COI/ITS reference sequences.
-version: 1.0.0
-updated: "2026-10-05"
+version: 1.0.1
+updated: "2026-11-17"
 triggers:
   - "edna reference database"
   - "silva download"
@@ -17,7 +17,7 @@ disable-model-invocation: true
 
 # eDNA Marker References (run module)
 
-> **v1.0.0.** Executes marker-reference library downloads under the manifest v1 contract. **Curation stays with nf-edna's `reference-db` sub-skill** (catalog of URLs, licenses, DECIPHER pre-trained matrix); this module is the retrieval layer that delivers files + md5 + manifest to any consumer — and fixes the nf-edna audit gap (no automated retriever with manifest semantics).
+> Executes marker-reference library downloads under the manifest v1 contract. **Curation stays with nf-edna's `reference-db` sub-skill** (catalog of URLs, licenses, DECIPHER pre-trained matrix); this module is the retrieval layer that delivers files + md5 + manifest to any consumer — and fixes the nf-edna audit gap (no automated retriever with manifest semantics).
 
 ## Division of responsibilities
 

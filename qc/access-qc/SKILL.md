@@ -1,8 +1,8 @@
 ---
 name: access-qc
 description: Post-run QC for biodb-fetch fetches — recompute md5 against manifest.tsv, verify contract_version column, non-empty payloads, manifest completeness (no rows missing path/md5), and domain sanity rules (fasta non-empty, FASTQ gzip integrity, JSON/TAB parses). Writes qc-report.md + evidence. Use after a fetch with >25 files or any empty/partial output.
-version: 1.0.0
-updated: "2026-10-05"
+version: 1.0.1
+updated: "2026-11-17"
 triggers:
   - "qc database access"
   - "verify manifest"
@@ -12,7 +12,7 @@ disable-model-invocation: true
 
 # Access QC (qc phase)
 
-> **v1.0.0.** The verification layer between a fetch and the consumer's pipeline. Every recommendation cites a measured value; the run phase hands files to a consumer only after this passes.
+> The verification layer between a fetch and the consumer's pipeline. Every recommendation cites a measured value; the run phase hands files to a consumer only after this passes.
 
 ## Inputs / Outputs contract
 
