@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  biodb-fetch metro map (schematic). Author: Claude Code (Sonnet 5.5) for Cheahhl814, 2026-11-17.
+  Sources: SKILL.md, README.md, preflight/access-preflight, run/access-builder (routing rules),
+  run/{markers-reference,occurrence-marine,taxonomy-backbone}, qc/access-qc, debug/access-debug, scripts/.
+  Judgment calls: access-builder documents contract_version=1 while access-qc requires 2 (v2 = v1 + cache column);
+  shown as "contract v1/v2" per brief. Lane grouping/colors follow the brief, not a repo doc. "ENA default" mirror order
+  from access-builder Domain 2. NCBI creds + ENA reachability are drawn as one station (both are access-preflight checks).
+  Debug loop re-enters lane C only as a schematic stand-in for "the failing fetch lane".
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" font-family="'Noto Sans','DejaVu Sans',Verdana,Arial,sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#7b8aa3"/>
+    </marker>
+  </defs>
+  <style>
+    .t{fill:#0f1b3d} .b{font-weight:700;font-size:15px} .c{font-size:12.5px;fill:#6b768c}
+    .ttl{font-weight:700;font-size:26px;fill:#0f1b3d}
+    .ln{fill:none;stroke-width:10;stroke-linecap:round;stroke-linejoin:round}
+    .st{fill:#fff;stroke:#0f1b3d;stroke-width:4}
+    .panel{fill:#f3f5f9;stroke:#dde2ec;stroke-width:2}
+    .det{fill:none;stroke:#7b8aa3;stroke-width:4;stroke-dasharray:2 8;stroke-linecap:round}
+  </style>
+  <rect width="1600" height="900" fill="#fff"/>
+
+  <!-- panels -->
+  <rect class="panel" x="30" y="65" width="370" height="625" rx="28"/>
+  <rect class="panel" x="415" y="65" width="800" height="625" rx="28"/>
+  <rect class="panel" x="1230" y="65" width="340" height="625" rx="28"/>
+  <g class="ttl">
+    <circle cx="52" cy="32" r="19" fill="#0f1b3d"/><text x="52" y="40" font-size="22" fill="#fff" text-anchor="middle">1</text>
+    <text x="85" y="42">Preflight — the gate</text>
+    <circle cx="437" cy="32" r="19" fill="#0f1b3d"/><text x="437" y="40" font-size="22" fill="#fff" text-anchor="middle">2</text>
+    <text x="470" y="42">Fetch — eight domains, three lanes</text>
+    <circle cx="1252" cy="32" r="19" fill="#0f1b3d"/><text x="1252" y="40" font-size="22" fill="#fff" text-anchor="middle">3</text>
+    <text x="1285" y="42">QC &amp; handoff</text>
+  </g>
+
+  <!-- ===== PANEL 1: preflight ===== -->
+  <path class="ln" stroke="#3b4a6b" d="M55 330H415"/>
+  <path class="ln" stroke="#d62839" d="M350 330V492"/>
+  <rect x="42" y="310" width="14" height="40" rx="4" fill="#0f1b3d"/>
+  <text class="c" x="40" y="372">consumer</text>
+  <text class="c" x="40" y="388">request</text>
+  <g class="st"><rect x="97" y="310" width="16" height="40" rx="8"/><rect x="177" y="310" width="16" height="40" rx="8"/><rect x="247" y="310" width="16" height="40" rx="8"/></g>
+  <text class="t b" x="105" y="258" text-anchor="middle">NCBI creds</text>
+  <text class="c" x="105" y="275" text-anchor="middle">email / api_key</text>
+  <text class="c" x="105" y="291" text-anchor="middle">+ ENA reachable</text>
+  <text class="t b" x="185" y="378" text-anchor="middle">scratch disk</text>
+  <text class="c" x="185" y="395" text-anchor="middle">≥ 3× FASTQ</text>
+  <text class="t b" x="255" y="258" text-anchor="middle">rate budget</text>
+  <text class="c" x="255" y="275" text-anchor="middle">3 anon / 10 keyed</text>
+  <text class="c" x="255" y="291" text-anchor="middle">req/s</text>
+  <rect x="342" y="304" width="16" height="52" rx="5" fill="#0f1b3d"/>
+  <text class="t b" x="355" y="258" text-anchor="middle">contract.json</text>
+  <text class="c" x="355" y="275" text-anchor="middle">checkpoint</text>
+  <text x="378" y="321" font-size="13" font-weight="700" fill="#1fa971">GO</text>
+  <text x="364" y="398" font-size="13" font-weight="700" fill="#d62839">NO-GO</text>
+  <polygon points="336,490 364,490 378,504 378,532 364,546 336,546 322,532 322,504" fill="#d62839"/>
+  <text x="350" y="523" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">STOP</text>
+  <text class="t b" x="350" y="580" text-anchor="middle">NO-GO → halt</text>
+  <text class="c" x="350" y="597" text-anchor="middle">fix or reroute, re-run</text>
+
+  <!-- ===== PANEL 2: lanes ===== -->
+  <!-- trunk -->
+  <path class="ln" stroke="#3b4a6b" d="M400 330H430"/>
+  <!-- lane A teal -->
+  <path class="ln" stroke="#0f9d8a" d="M430 330C460 330 455 210 495 210H950C1000 210 995 330 1050 330"/>
+  <!-- lane B amber -->
+  <path class="ln" stroke="#f2a300" d="M430 330H1050"/>
+  <!-- lane C slate -->
+  <path class="ln" stroke="#64748b" d="M430 330C460 330 455 450 495 450H850C990 450 960 330 1050 330"/>
+  <g font-size="13" font-weight="700">
+    <text x="490" y="155" fill="#0b7a6b">A · records</text>
+    <text x="490" y="283" fill="#a86f00">B · references &amp; taxonomy</text>
+    <text x="490" y="418" fill="#4b5668">C · mapping</text>
+  </g>
+  <!-- A stations -->
+  <g class="st"><circle cx="530" cy="210" r="11"/><circle cx="700" cy="210" r="11"/><circle cx="880" cy="210" r="11"/></g>
+  <text class="t b" x="530" y="188" text-anchor="middle">NCBI</text>
+  <text class="c" x="565" y="241" text-anchor="middle">datasets CLI ⇄ e-utilities</text>
+  <text class="t b" x="700" y="192" text-anchor="middle">reads</text>
+  <text class="c" x="700" y="241" text-anchor="middle">ENA default</text>
+  <path class="det" d="M668 210C660 150 740 150 732 210"/>
+  <text class="c" x="700" y="142" text-anchor="middle" font-style="italic">SRA direct (fallback)</text>
+  <text class="t b" x="880" y="188" text-anchor="middle">GEO</text>
+  <text class="c" x="880" y="241" text-anchor="middle">SuperSeries → SubSeries fan-out</text>
+  <!-- B stations -->
+  <g class="st"><circle cx="530" cy="330" r="11"/><circle cx="790" cy="330" r="11"/><circle cx="915" cy="330" r="11"/></g>
+  <text class="t b" x="530" y="305" text-anchor="middle">marker refs</text>
+  <text class="c" x="530" y="358" text-anchor="middle">UNITE · BOLD · SILVA</text>
+  <text class="c" x="530" y="374" text-anchor="middle">PR2 · MIDORI2</text>
+  <rect x="642" y="310" width="16" height="40" rx="5" fill="#0f1b3d"/>
+  <text class="t b" x="650" y="305" text-anchor="middle">license flag</text>
+  <text class="c" x="650" y="368" text-anchor="middle">CC-BY-NC</text>
+  <text class="c" x="650" y="384" text-anchor="middle">--i-accept-license</text>
+  <text class="t b" x="790" y="305" text-anchor="middle">taxonomy</text>
+  <text class="c" x="790" y="358" text-anchor="middle">CoL XR default</text>
+  <text class="c" x="790" y="374" text-anchor="middle">NCBI · WoRMS</text>
+  <text class="t b" x="915" y="305" text-anchor="middle">occurrence-marine</text>
+  <text class="c" x="915" y="358" text-anchor="middle">OBIS · no credentials</text>
+  <!-- C stations (switches) -->
+  <g class="st"><circle cx="600" cy="450" r="11"/><circle cx="800" cy="450" r="11"/></g>
+  <text class="t b" x="600" y="481" text-anchor="middle">ID mapping</text>
+  <text class="c" x="600" y="498" text-anchor="middle">BioMart &gt;5k ⇄</text>
+  <text class="c" x="600" y="514" text-anchor="middle">UniProt/Ensembl REST</text>
+  <text class="t b" x="800" y="481" text-anchor="middle">orthologs</text>
+  <text class="c" x="800" y="498" text-anchor="middle">datasets ⇄</text>
+  <text class="c" x="800" y="514" text-anchor="middle">OrthoDB/Compara</text>
+  <!-- manifest junction -->
+  <path class="ln" stroke="#3b4a6b" d="M1170 330H1300"/>
+  <rect x="1048" y="312" width="126" height="36" rx="8" fill="#0f1b3d"/>
+  <rect x="1044" y="308" width="134" height="44" rx="12" fill="none" stroke="#fff" stroke-width="3"/>
+  <text x="1111" y="336" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">manifest.tsv</text>
+  <text class="t b" x="1111" y="378" text-anchor="middle" font-size="13">contract v1/v2</text>
+  <text class="c" x="1111" y="395" text-anchor="middle">accession · source</text>
+  <text class="c" x="1111" y="411" text-anchor="middle">md5 · contract_version</text>
+
+  <!-- ===== PANEL 3 ===== -->
+  <path class="ln" stroke="#3b4a6b" d="M1300 330H1540"/>
+  <rect x="1282" y="310" width="16" height="40" rx="8" class="st"/>
+  <text class="t b" x="1290" y="290" text-anchor="middle">access-qc</text>
+  <text class="c" x="1290" y="372" text-anchor="middle">recompute md5</text>
+  <text class="c" x="1290" y="388" text-anchor="middle">non-empty</text>
+  <text class="c" x="1290" y="404" text-anchor="middle">contract_version</text>
+  <rect x="1382" y="304" width="16" height="52" rx="5" fill="#0f1b3d"/>
+  <text class="t b" x="1390" y="290" text-anchor="middle">verdict</text>
+  <text x="1412" y="321" font-size="13" font-weight="700" fill="#1fa971">PASS</text>
+  <text x="1412" y="424" font-size="13" font-weight="700" fill="#d62839">FAIL</text>
+  <rect x="1537" y="310" width="12" height="40" rx="4" fill="#0f1b3d"/>
+  <text class="t b" x="1556" y="378" text-anchor="end">consumer receives</text>
+  <text class="t b" x="1556" y="396" text-anchor="end">outdir</text>
+  <g font-size="13" font-weight="700" fill="#fff" text-anchor="middle">
+    <rect x="1290" y="238" width="56" height="26" rx="6" fill="#0f1b3d"/><text x="1318" y="256">FASTA</text>
+    <rect x="1352" y="238" width="56" height="26" rx="6" fill="#0f1b3d"/><text x="1380" y="256">FASTQ</text>
+    <rect x="1414" y="238" width="48" height="26" rx="6" fill="#0f1b3d"/><text x="1438" y="256">JSON</text>
+    <rect x="1468" y="238" width="44" height="26" rx="6" fill="#0f1b3d"/><text x="1490" y="256">TSV</text>
+  </g>
+  <text class="c" x="1290" y="228" fill="#1fa971">PASS → outputs + manifest.tsv</text>
+  <!-- debug detour -->
+  <path class="det" d="M1390 356V590"/>
+  <circle cx="1390" cy="612" r="13" class="st"/>
+  <path class="det" d="M1374 612H905V468" marker-end="url(#arr)"/>
+  <text class="t b" x="1390" y="650" text-anchor="middle">access-debug</text>
+  <text class="c" x="1390" y="667" text-anchor="middle">RECOVERABLE / BLOCKED</text>
+  <text class="c" x="1140" y="602" text-anchor="middle" font-style="italic">re-fetch failing row</text>
+
+  <!-- ===== legend ===== -->
+  <g class="t" font-size="15">
+    <path class="ln" stroke="#0f9d8a" d="M44 738H92" style="stroke-width:8"/><text x="104" y="744">A · records (NCBI, reads, GEO)</text>
+    <path class="ln" stroke="#f2a300" d="M424 738H472" style="stroke-width:8"/><text x="484" y="744">B · references &amp; taxonomy</text>
+    <path class="ln" stroke="#64748b" d="M764 738H812" style="stroke-width:8"/><text x="824" y="744">C · mapping</text>
+    <rect x="1012" y="722" width="14" height="32" rx="7" class="st" style="stroke-width:3"/><text x="1038" y="744">shared station / gate</text>
+    <rect x="1262" y="722" width="14" height="32" rx="4" fill="#0f1b3d"/><text x="1288" y="744">checkpoint / toll</text>
+    <path class="det" d="M44 790H92"/><text x="104" y="796">detour (license · fallback · failure)</text>
+    <path class="ln" stroke="#d62839" d="M424 790H472" style="stroke-width:8"/><text x="484" y="796">NO-GO halt</text>
+  </g>
+  <text class="c" x="1556" y="878" text-anchor="end">biodb-fetch v1.0.1 · schematic, not to scale · see SKILL.md</text>
+</svg>

@@ -99,15 +99,7 @@ pixi run qc --outdir work/reads
 
 ## 🔬 Pipeline overview
 
-The analysis follows a phased evidence chain. Each phase consumes the artifacts of the previous phase and gates progression with a Go/No-Go check.
-
-| # | Phase | Goal | Sub-skill | Artifact produced |
-|:--|:------|:-----|:----------|:------------------|
-| **1** | `preflight` | Validate pixi env, network reachability, NCBI email/api_key, and scratch disk before any fetch | `preflight/` | `contract.json` + `preflight-report.md` |
-| **2** | `run` | Execute the retrieval routing (ncbi / reads / geo / id-mapping / orthologs-precomputed / marker-references / occurrence-marine / taxonomy) under the manifest.tsv contract | `run/` | downloaded files + `manifest.tsv` |
-| **3** | `qc` | Verify every fetched file: md5, source, contract_version, non-empty payloads before consumer handoff | `qc/` | `qc-report.md` (+ JSON verdict on stdout) |
-| **4** | `debug` | Interpret fetch failures via the signature library (rate limits, WebEnv TTL, 2022 migrations, mirror outages) | `debug/` | `$RUN_DIR/debug-report.md` |
-| **5** | `battle-test` | Structural smoke tests + fixtures-first contract verification + opt-in live canaries | `battle-test/` | `$RUN_DIR/battle-test-report.md` |
+![biodb-fetch metro map: Preflight gate (panel 1) feeds three fetch lanes — records (ncbi / reads / GEO), references & taxonomy (marker refs, CoL/NCBI/WoRMS, OBIS), and ID mapping/orthologs — all converging on the shared manifest.tsv station (panel 2), then the QC & handoff gate with a dotted loop back to access-debug on failure (panel 3).](docs/biodb-fetch-metro-map.png)
 
 > [!TIP]
 > Read each sub-skill's `SKILL.md` for the full procedure, its ask-user stop points, and its signature library (stderr pattern → cause → fix).
